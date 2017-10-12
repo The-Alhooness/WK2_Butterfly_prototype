@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuardAI : MonoBehaviour 
+public class LostGuard: MonoBehaviour 
 {
 	public LayerMask visionLayers;
 	public float moveSpeed;
@@ -10,6 +10,8 @@ public class GuardAI : MonoBehaviour
 	public float lineOfSight = 90;
 	public float sightRange = 3;
 	public int numberOfChecks = 12;
+	public GameObject defaultBubble;
+	public GameObject seesPlayerBubble;
 
 	[HideInInspector]
 	public Vector3 target;
@@ -24,7 +26,7 @@ public class GuardAI : MonoBehaviour
 	{
 		visionCone = transform.Find ("line of sight");
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{	
@@ -39,13 +41,13 @@ public class GuardAI : MonoBehaviour
 	{
 		if(hasTarget)
 		{
-			Vector3 diff = transform.position - target;
-			diff.Normalize();
-
-			float rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.Euler(0f, 0f, rotation + 90);
-
-			transform.Translate (Vector3.up * moveSpeed * Time.deltaTime);
+			defaultBubble.SetActive (false);
+			seesPlayerBubble.SetActive (true);
+		}
+		else
+		{
+			defaultBubble.SetActive (true);
+			seesPlayerBubble.SetActive (false);
 		}
 	}
 
@@ -103,6 +105,6 @@ public class GuardAI : MonoBehaviour
 		}
 		else
 			Debug.DrawRay (transform.position, transform.up * sightRange, Color.green);
-		
+
 	}
 }

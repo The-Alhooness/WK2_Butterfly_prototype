@@ -21,6 +21,7 @@ public class ItemDetector : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D colliderHit)
 	{
+		
 		if (colliderHit.CompareTag ("Item") && !isActive && colliderHit.name == itemName)
 		{
 			isActive = true;

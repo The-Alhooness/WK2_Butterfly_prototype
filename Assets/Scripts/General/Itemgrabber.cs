@@ -47,6 +47,7 @@ public class Itemgrabber : MonoBehaviour
 				hasItem = true;
 				item.gameObject.transform.localPosition = Vector3.zero;
 				item.gameObject.GetComponent<CircleCollider2D> ().enabled = false;
+				item.gameObject.GetComponent<Rigidbody2D> ().simulated = false;
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.Space))
@@ -58,7 +59,9 @@ public class Itemgrabber : MonoBehaviour
 				Transform item = itemSlot.transform.GetChild (0);
 				item.GetComponent<CircleCollider2D> ().enabled = true;
 				item.SetParent (null);
-				item.GetComponent<Rigidbody2D> ().velocity = transform.forward * 10;
+				item.gameObject.GetComponent<Rigidbody2D> ().simulated = true;
+				item.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+				//item.GetComponent<Rigidbody2D> ().velocity = transform.forward * 10;
 			}
 		}
 	}
